@@ -8,13 +8,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      source: {
+      url: {
         type: Sequelize.STRING
       },
-      pricing: {
+      price: {
         type: Sequelize.STRING
       },
       location: {
+        type: Sequelize.STRING
+      },
+      rooms: {
+        type: Sequelize.STRING
+      },
+      bathrooms: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      state: {
+        type: Sequelize.STRING
+      },
+      city: {
         type: Sequelize.STRING
       },
       createdAt: {

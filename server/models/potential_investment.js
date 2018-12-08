@@ -1,9 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const potential_investment = sequelize.define('potential_investment', {
-    source: DataTypes.STRING,
+    url: DataTypes.STRING,
+    price: DataTypes.STRING,
     location: DataTypes.STRING,
-    pricing: DataTypes.STRING,
+    rooms: DataTypes.STRING,
+    bathrooms: DataTypes.STRING,
+    address: DataTypes.STRING,
+    description: DataTypes.STRING,
+    state: DataTypes.STRING,
+    city: DataTypes.STRING,
   }, {});
   potential_investment.associate = function(models) {
     // associations can be defined here

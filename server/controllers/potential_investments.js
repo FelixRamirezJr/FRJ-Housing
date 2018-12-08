@@ -2,10 +2,17 @@ const potential_investments = require('../models').potential_investment;
 
 module.exports = {
   create(req, res) {
+    let params = req.body;
     let data_to_save = {
-      source: req.body.source,
-      pricing: req.body.pricing,
-      location: req.body.location,
+      url: params.url,
+      price: params.price,
+      rooms: params.rooms,
+      bathrooms: params.bathrooms,
+      address: params.address,
+      description: params.description,
+      state: params.state,
+      city: params.city,
+      location: params.location
     };
     return potential_investments
       .create(data_to_save)

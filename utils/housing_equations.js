@@ -33,6 +33,14 @@ exports.calculate_egi = function(gpi, vac) {
     return gpi - vac;
 }
 
+// Returns all of the equations in a formatted hash to display for the view
 exports.calculate_all_variables = function(housing_arr) {
-    return "calculating all variables";
+    var calculations = {};
+    calculations["gross_potential_produt"] = this.calculate_gpi( housing_arr );
+    calculations["less_vacancy_and_collections_loss"] = this.calculate_vac( calculations["gross_potential_produt"] );
+    calculations["effective_gross_income"] = this.calculate_egi(
+        calculations["gross_potential_produt"], 
+        calculations["less_vacancy_and_collections_loss"]
+    );
+    return calculations;
 }

@@ -11,6 +11,15 @@ module.exports = {
       url: {
         type: Sequelize.STRING
       },
+      gpi: {
+        type: Sequelize.DECIMAL
+      },
+      vac: {
+        type: Sequelize.DECIMAL
+      },
+      egi: {
+        type: Sequelize.DECIMAL
+      },
       price: {
         type: Sequelize.STRING
       },

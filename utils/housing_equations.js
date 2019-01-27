@@ -6,10 +6,10 @@
 //
 // Example:
 // [ {number_of_units: 2, rent_per_unit: 550}, {number_of_units: 1, rent_per_unit: 700} ]
-exports.calculate_gpi = function(housing_arr) {
+exports.calculate_gpi = function(housing_data) {
     var total_gpi = 0;
     for(var i = 0; i < housing_arr.length; i++)
-    {   
+    {
         units_hash = housing_arr[i];
         total_gpi += units_hash.number_of_units * units_hash.rent_per_unit;
     }
@@ -39,7 +39,7 @@ exports.calculate_all_variables = function(housing_arr) {
     calculations["gross_potential_produt"] = this.calculate_gpi( housing_arr );
     calculations["less_vacancy_and_collections_loss"] = this.calculate_vac( calculations["gross_potential_produt"] );
     calculations["effective_gross_income"] = this.calculate_egi(
-        calculations["gross_potential_produt"], 
+        calculations["gross_potential_produt"],
         calculations["less_vacancy_and_collections_loss"]
     );
     return calculations;

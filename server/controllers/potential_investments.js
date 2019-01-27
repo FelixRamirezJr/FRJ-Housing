@@ -1,4 +1,5 @@
 const potential_investments = require('../models').potential_investment;
+var equations = require('../../utils/housing_equations');
 
 module.exports = {
   create(req, res) {
@@ -12,7 +13,10 @@ module.exports = {
       description: params.description,
       state: params.state,
       city: params.city,
-      location: params.location
+      location: params.location,
+      gpi: params.gpi,
+      vac: params.vac,
+      egi: params.egi,
     };
     return potential_investments
       .create(data_to_save)

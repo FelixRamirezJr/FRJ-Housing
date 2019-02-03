@@ -46,13 +46,15 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       }
-    });
+    },{
+      timestamps: true,
+    }).then(() => queryInterface.addIndex('potential_investments', ['url', 'location']))),
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('potential_investments');

@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       gpi: {
         type: Sequelize.DECIMAL
@@ -21,28 +21,28 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       price: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
       location: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       rooms: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
       bathrooms: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       state: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

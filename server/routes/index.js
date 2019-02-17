@@ -7,5 +7,5 @@ module.exports = (app) => {
   )
 );
 
-  app.post('/api/potential_investments', potential_investments_controller.create);
+  app.post('/api/potential_investments', potential_investments_controller.create);  
 };

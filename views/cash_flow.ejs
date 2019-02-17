@@ -22,7 +22,7 @@
                   (document here)
                 </a>,
                 Example Calculations (ANNUAL)
-                <a target="_blank" href="">
+                <a target="_blank" href="https://docs.google.com/document/d/1TQrg6wG2TJw9Y-RcjQuwxhMAAgOziwBl0F02fjRaqTA/edit?usp=sharing">
                   (document here)
                 </a>
               </p>
@@ -108,19 +108,23 @@
         //let {total_rent, gpi, vac, egi, vac} = this.state;
         let {total_rent, vac_rate, other_income, other_expenses, monthly_mortgage_payment, repairs} = this.state;
         let gpi = total_rent;
+        let vac = 0;
+        let rra = 0;
 
         //let vac = gpi * (vac_rate / 100); // Get the vac
-        let vac = gpi * ( vac_rate > 0 ? (vac_rate / 100) : (1) )
+        if(vac_rate > 0){
+          vac = gpi * (vac_rate / 100);
+        }
         let egi = gpi - vac;
         let oi = other_income;
         let goi = egi + other_income;
         let noi = goi - other_expenses;
 
         //let replacement_reserves_repairs = gpi * repairs;
-        let rra = gpi * ( repairs > 0 ? (repairs / 100) : (1) );
-        let ds
-
-        let before_tax_cash_flow = noi - rra - ds;
+        if( repairs > 0 ){
+          rra = gpi * (repairs / 100);
+        }
+        let before_tax_cash_flow = noi - rra - monthly_mortgage_payment;
 
 
         return(
@@ -173,6 +177,8 @@
                    name="monthly_mortgage_payment"
                    onChange={this.handleInputChanges}
             />
+            <p> Montly Cash Flow: ${before_tax_cash_flow} </p>
+            <p> Yearly Cash Flow: ${before_tax_cash_flow * 12} </p>
           </div>
         );
       }

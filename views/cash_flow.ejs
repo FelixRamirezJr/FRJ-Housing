@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-9">
+          <div class="card">
+            <h5 class="card-header"> Determine cash flow (specific property info) </h5>
+            <!-- STEP 1 -->
+            <div class="card-body">
+              <p>
+                Prepare a property snapshot
+                <a target="_blank" href="https://docs.google.com/document/d/1LMzRkkk5nnwJYqTLUy4JTkc0QQckZQAG33h6DkLCq0g/edit?usp=sharing">
+                  (document here)
+                </a>,
+                Example Calculations (ANNUAL)
+                <a target="_blank" href="">
+                  (document here)
+                </a>
+              </p>
+
+              <p> <small> <strong> Calculate GPI (Gross Potential Income) </strong> </small> </p>
+              <p> GPI = (TOTAL_MONTHLY_RENT_FOR_ALL_UNITS * 12) </p>
+              <p> <small> <strong> Calculate VAC (vacancy loss) -- 5% Single Family, 10% Multi-Family & College </strong>  </small> </p>
+              <p> VAC = GPI * estimated vacancy rate </p>
+              <p> <small> <strong> Calculate EGI (Effective Gross Income) </strong> </small> </p>
+              <p> EGI = GPI - VAC </p>
+              <p> <small> <strong> Calculate OI (Other Income) - Washing machines, vending machines.. etc. </strong> </small> </p>
+              <p> OI = OI </p>
+              <p> <small> <strong> Calculate GOI (Cash the property has to pay expenses) </strong> </small> </p>
+              <p> GOI = EGI + OI </p>
+              <p> <small> <strong> Calculate NOI using other expenses(eviction, maint, tax, etc.) </strong> </small> </p>
+              <p> NOI = GPI - OE </p>
+              <p> <small> <strong>  Calculate Replacement Reserves (replacing roofs, boilers, etc.) </strong> </small> </p>
+              <p> RRA = RRA  </p>
+              <p> <small> <strong> Debt Service (Yearly mortgage payment) </strong> </small> </p>
+              <p> DS = DS </p>
+              <p> <small> <strong> Before Tax Cash Flow!! </strong> </small> </p>
+              <p> BTCF = NOI - RRA - DS </p>
+
+              <hr/>
+              <p> <strong> Other stats to consider </strong> </p>
+              <p> <small> <strong> CAP RATE (Capitalization Rate - AKA return on investment) </strong> </small> </p>
+              <p> CAP_RATE = NOI / VALUE_OF_HOME  </p>
+              <p> <small> <strong> Cash-on-Cash Return, Service, DCR </strong> </small> </p>
+              <p> cOcReturn = NOI - DEBT(LOAN) </p>
+              <p> service = BTCF / Owner's Equity </p>
+              <p> DCR = NOI / Annual Mortgage Payment </p>
+              <p>
+                <strong> ++ for properties: </strong>
+                <small>  add-value (good demand) </small>,
+                <small> less than 15 years old </small>,
+                <small> pitched rather than flat roofs </small>,
+                <small> homes that are mansory block or brick (wood is more costly) </small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <div class="card">
+            <h5 class="card-header"> Interactive (Estimate Calculations) </h5>
+            <div class="card-body">
+              <div id="react-root"></div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+  </body>
+</html>
+
+<script type="text/babel">
+    class Calc extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          total_rent: 0,
+          vac_rate: 0,
+          other_income: 0,
+          other_expenses: 0,
+          monthly_mortgage_payment: 0,
+          repairs: 0,
+          gpi: null,
+          vac: null,
+          egi: null,
+          oi: null,
+          goi: null,
+          noi: null,
+        };
+        this.handleInputChanges = this.handleInputChanges.bind(this);
+      }
+
+      handleInputChanges(event) {
+        this.setState({[event.target.name]: event.target.value});
+      }
+
+      render() {
+        //let {total_rent, gpi, vac, egi, vac} = this.state;
+        let {total_rent, vac_rate, other_income, other_expenses, monthly_mortgage_payment, repairs} = this.state;
+        let gpi = total_rent;
+
+        //let vac = gpi * (vac_rate / 100); // Get the vac
+        let vac = gpi * ( vac_rate > 0 ? (vac_rate / 100) : (1) )
+        let egi = gpi - vac;
+        let oi = other_income;
+        let goi = egi + other_income;
+        let noi = goi - other_expenses;
+
+        //let replacement_reserves_repairs = gpi * repairs;
+        let rra = gpi * ( repairs > 0 ? (repairs / 100) : (1) );
+        let ds
+
+        let before_tax_cash_flow = noi - rra - ds;
+
+
+        return(
+          <div>
+            <label> Monthly Rent </label>
+            <input value={total_rent}
+                   type="number"
+                   className="form-control"
+                   name="total_rent"
+                   onChange={this.handleInputChanges}
+            />
+            <label> VAC Rate (Percent Average is %5) </label>
+            <input value={vac_rate}
+                   type="number"
+                   className="form-control"
+                   name="vac_rate"
+                   onChange={this.handleInputChanges}
+            />
+            <label> Other Income </label>
+            <input value={other_income}
+                   type="number"
+                   className="form-control"
+                   name="other_income"
+                   onChange={this.handleInputChanges}
+            />
+            <label> Other Expenses </label>
+            <input value={other_expenses}
+                   type="number"
+                   className="form-control"
+                   name="other_expenses"
+                   onChange={this.handleInputChanges}
+            />
+            <label> Replacement Reserves (Repairs) - 5% </label>
+            <input value={repairs}
+                   type="number"
+                   className="form-control"
+                   name="repairs"
+                   onChange={this.handleInputChanges}
+            />
+            <label>
+              <a href="https://www.google.com/search?q=mortgage+calculator&oq=Mortgage+calcular&aqs=chrome.1.69i57j0l5.4529j0j4&sourceid=chrome&ie=UTF-8"
+                 target="_blank"
+              >
+              Monthly Mortgage Payment
+              </a>
+            </label>
+            <input value={monthly_mortgage_payment}
+                   type="number"
+                   className="form-control"
+                   name="monthly_mortgage_payment"
+                   onChange={this.handleInputChanges}
+            />
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Calc />, document.getElementById('react-root'));
+</script>

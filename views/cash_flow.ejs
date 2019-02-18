@@ -116,7 +116,7 @@
       render() {
         //let {total_rent, gpi, vac, egi, vac} = this.state;
         let {total_rent, vac_rate, other_income, other_expenses, monthly_mortgage_payment, repairs} = this.state;
-        let gpi = total_rent;
+        let gpi = Number(total_rent);
         let vac = 0;
         let rra = 0;
 
@@ -125,8 +125,8 @@
           vac = gpi * (vac_rate / 100);
         }
         let egi = gpi - vac;
-        let oi = other_income;
-        let goi = egi + other_income;
+        let oi = Number(other_income);
+        let goi = egi + oi;
         let noi = goi - other_expenses;
 
         //let replacement_reserves_repairs = gpi * repairs;
@@ -188,6 +188,7 @@
             />
             <p> Montly Cash Flow: ${before_tax_cash_flow} </p>
             <p> Yearly Cash Flow: ${before_tax_cash_flow * 12} </p>
+            <p> NOI: {noi} </p>
           </div>
         );
       }

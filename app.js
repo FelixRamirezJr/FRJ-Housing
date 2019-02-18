@@ -11,6 +11,7 @@ var guide = require('./routes/guide');
 var seota = require('./routes/seota');
 var cash_flow = require('./routes/cash_flow');
 var negotiate = require('./routes/negotiate');
+var landlording = require('./routes/landlording');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/guide', guide);
 app.use('/seota', seota);
 app.use('/cash_flow', cash_flow);
 app.use('/negotiate', negotiate);
+app.use('/landlording', landlording);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -18,9 +18,16 @@ module.exports = {
       vac: params.vac,
       egi: params.egi,
     };
-    return potential_investments
-      .create(data_to_save)
-      .then(potential_investments => res.status(201).send(potential_investments))
-      .catch(error => res.status(400).send(error));
+
+    potential_investments.findOne({ where: {url: params.url} }).then(pi => {
+      if(pi == null){
+        return potential_investments
+          .create(data_to_save)
+          .then(potential_investments => res.status(201).send(potential_investments))
+          .catch(error => res.status(400).send(error));
+      } else {
+        return res.status(202).send({message: "Did not create: " + params.url})
+      }
+    })
   },
 };
